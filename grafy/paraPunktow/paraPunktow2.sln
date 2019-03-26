@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "paraPunktow2", "paraPunktow2\paraPunktow2.csproj", "{FD150B7A-9DDD-4CF2-AC3B-5F39CD382CAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD150B7A-9DDD-4CF2-AC3B-5F39CD382CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD150B7A-9DDD-4CF2-AC3B-5F39CD382CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD150B7A-9DDD-4CF2-AC3B-5F39CD382CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD150B7A-9DDD-4CF2-AC3B-5F39CD382CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {406D36B2-A618-4F9F-9888-27B526EB7D5F}
+	EndGlobalSection
+EndGlobal
