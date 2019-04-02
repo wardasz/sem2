@@ -67,6 +67,11 @@
     <Compile Include="dziala\Krab.cs" />
     <Compile Include="dziala\Panzerhaubica.cs" />
     <Compile Include="fabryka.cs" />
+    <Compile Include="fabrykaApc.cs" />
+    <Compile Include="fabrykaBwp.cs" />
+    <Compile Include="fabrykaCzolgow.cs" />
+    <Compile Include="fabrykaDzial.cs" />
+    <Compile Include="Ipojazd.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
