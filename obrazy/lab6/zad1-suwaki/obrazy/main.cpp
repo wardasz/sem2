@@ -1,6 +1,9 @@
 #include<opencv2/highgui/highgui.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 
+#include<iomanip>
+
+
 #include<iostream>
 #include<conio.h>
 
@@ -39,14 +42,15 @@ int main() {
 	Mat image4;
 	Mat image5;
 	Mat image6;
+	Mat image7;
 	VideoCapture cap;
 	RNG rng(12345);
 
 	namedWindow("Suwaki", 4);
 	createTrackbar("Hgora", "Suwaki", &robocza1, 255, on_trackbar);
 	createTrackbar("Hdol", "Suwaki", &robocza2, 255, on_trackbar);
-	createTrackbar("Sgora", "Suwaki", &robocza3, 255, on_trackbar);
-	createTrackbar("Sdul", "Suwaki", &robocza4, 255, on_trackbar);
+	createTrackbar("Sgora", "Suwaki", &robocza3, 360, on_trackbar);
+	createTrackbar("Sdul", "Suwaki", &robocza4, 360, on_trackbar);
 	createTrackbar("Vgora", "Suwaki", &robocza5, 255, on_trackbar);
 	createTrackbar("Vdol", "Suwaki", &robocza6, 255, on_trackbar);
 
@@ -67,19 +71,25 @@ int main() {
 			cap >> image;
 			imshow("window", image);
 
-			cvtColor(image, image2, CV_BGR2HSV);
-			imshow("window2", image2);
+			cvtColor(image, image2, CV_BGR2HSV);			
 
 			//ustalanie wartoœci
 			inRange(image2, Scalar(hdol, sdol, vdol), Scalar(hgora, sgora, vgora), image3);
-			imshow("window3", image3);
+			imshow("window2", image3);
 
-			erode(image3, image4, (3, 3));
-			erode(image4, image4, (3, 3));
-			imshow("window4", image4);		
-			dilate(image4, image5, (8, 8));
-			dilate(image5, image5, (8, 8));
-			imshow("window5", image5);
+			Mat element1 = getStructuringElement(cv::MORPH_CROSS,
+				cv::Size(2 * 3 + 1, 2 * 3 + 1),
+				cv::Point(3, 3));
+			Mat element2 = getStructuringElement(cv::MORPH_CROSS,
+				cv::Size(2 * 8 + 1, 2 * 8 + 1),
+				cv::Point(8, 8));
+
+			erode(image3, image4, element1);
+			erode(image4, image4, element1);
+			imshow("window3", image4);		
+			dilate(image4, image5, element2);
+			dilate(image5, image5, element2);
+			imshow("window4", image5);
 
 			vector<vector<Point>> kontury;
 			vector<Vec4i> hier;
@@ -102,8 +112,18 @@ int main() {
 				drawContours(drawing, kontury, i, color, 2, 8, hier, 0, Point());
 				circle(drawing, mc[i], 4, color, -1, 8, 0);
 			}
+			imshow("window5", drawing);
 
-			imshow("window6", drawing);
+			image.copyTo(image7);
+			Moments m = moments(image5, true);
+			Point p(m.m10 / m.m00, m.m01 / m.m00);
+			
+			circle(image7, p, 3, Scalar(0, 0, 255));
+			String x = to_string(m.m10 / m.m00);
+			String y = to_string(m.m01 / m.m00);
+			String text = "Wsp: " + x + "," + y;
+			putText(image7, text, p, FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(200, 200, 250), 1, CV_AA);
+			imshow("window6", image7);
 				
 		}
 		catch (Exception e) {
