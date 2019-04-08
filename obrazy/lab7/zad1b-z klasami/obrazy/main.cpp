@@ -3,9 +3,9 @@
 
 #include<iomanip>
 
-
 #include<iostream>
 #include<conio.h>
+#include"pole.h"
 
 using namespace cv;
 using namespace std;
@@ -89,7 +89,7 @@ int main() {
 			imshow("window3", image4);		
 			dilate(image4, image5, element2);
 			dilate(image5, image5, element2);
-			imshow("window4", image5);
+			imshow("window4", image5);	
 
 			vector<vector<Point>> kontury;
 			vector<Vec4i> hier;
@@ -114,15 +114,24 @@ int main() {
 			}
 			imshow("window5", drawing);
 
+			vector<pole> pola(kontury.size());
+			//tu ju¿ jest ogarniête rysowanie
+			//tylko trzeba jeszcze te punkty pozamykaæ w obiektach klas
+			for (int i = 0; i < kontury.size(); i++) {
+				int x = mu[i].m10 / mu[i].m00;
+				int y = mu[i].m01 / mu[i].m00;
+				pola[i] = pole(x, y);
+
+			}
+
 			image.copyTo(image7);
-			Moments m = moments(image5, true);
-			Point p(m.m10 / m.m00, m.m01 / m.m00);
-			
-			circle(image7, p, 3, Scalar(0, 0, 255));
-			String x = to_string(m.m10 / m.m00);
-			String y = to_string(m.m01 / m.m00);
-			String text = "Wsp: " + x + "," + y;
-			putText(image7, text, p, FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(200, 200, 250), 1, CV_AA);
+			for (int i = 0; i < pola.size(); i++) {
+				Point p(pola[i].dajX(), pola[i].dajY());
+				circle(image7, p, 3, Scalar(0, 0, 255));
+				String text = "Wsp: " + to_string(pola[i].dajX()) + "," + to_string(pola[i].dajY());
+				putText(image7, text, p, FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(200, 200, 250), 1, CV_AA);
+
+			}
 			imshow("window6", image7);
 				
 		}
