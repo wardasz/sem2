@@ -11,10 +11,14 @@ using metodaWytworcza.apc;
 
 namespace metodaWytworcza
 {
-    abstract class fabryka
+    public abstract class fabryka
     {
-        protected fabryka() { }
- 
-        
+        protected abstract Ipojazd buduj(string nazwa);
+
+        public Ipojazd stwoz(string nazwa)
+        {
+            Ipojazd pojazd = buduj(nazwa);
+            return pojazd;
+        }
     }
 }

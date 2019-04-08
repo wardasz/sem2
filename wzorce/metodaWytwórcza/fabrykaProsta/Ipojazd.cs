@@ -8,6 +8,9 @@ namespace metodaWytworcza
 {
     public interface Ipojazd
     {
+        String nazwa { get; }
+        decimal kaliber { get; }
 
+        void ostrzelaj();
     }
 }

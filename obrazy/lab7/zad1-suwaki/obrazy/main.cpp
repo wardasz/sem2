@@ -1,8 +1,8 @@
 #include<opencv2/highgui/highgui.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 
-#include <chrono>
-#include <ctime> 
+#include<iomanip>
+
 
 #include<iostream>
 #include<conio.h>
@@ -10,34 +10,29 @@
 using namespace cv;
 using namespace std;
 
-int hg1=75;
-int hd1=58;
-int sg1=106;
-int sd1=27;
-int vg1=255;
-int vd1=0;
+int robocza1;
+int robocza2;
+int robocza3;
+int robocza4;
+int robocza5;
+int robocza6;
 
-int hg2=178;
-int hd2=166;
-int sg2=224;
-int sd2=116;
-int vg2=238;
-int vd2=122;
+int hgora;
+int hdol;
+int sgora;
+int sdol;
+int vgora;
+int vdol;
 
-int hg3=119;
-int hd3=103;
-int sg3=192;
-int sd3=108;
-int vg3=182;
-int vd3=77;
-
-int hg;
-int hd;
-int sg;
-int sd;
-int vg;
-int vd;
-
+void on_trackbar(int, void*)
+{
+	hgora = robocza1;
+	hdol = robocza2;
+	sgora = robocza3;
+	sdol = robocza4;
+	vgora = robocza5;
+	vdol = robocza6;
+}
 
 int main() {
 
@@ -51,6 +46,14 @@ int main() {
 	VideoCapture cap;
 	RNG rng(12345);
 
+	namedWindow("Suwaki", 4);
+	createTrackbar("Hgora", "Suwaki", &robocza1, 255, on_trackbar);
+	createTrackbar("Hdol", "Suwaki", &robocza2, 255, on_trackbar);
+	createTrackbar("Sgora", "Suwaki", &robocza3, 360, on_trackbar);
+	createTrackbar("Sdul", "Suwaki", &robocza4, 360, on_trackbar);
+	createTrackbar("Vgora", "Suwaki", &robocza5, 255, on_trackbar);
+	createTrackbar("Vdol", "Suwaki", &robocza6, 255, on_trackbar);
+
 	cap.open(0);
 
 	namedWindow("window", CV_WINDOW_AUTOSIZE);
@@ -63,57 +66,15 @@ int main() {
 	double dWidth = cap.set(CV_CAP_PROP_FRAME_WIDTH, 384);
 	double dHeight = cap.set(CV_CAP_PROP_FRAME_HEIGHT, 288);
 
-	int licznik = 1;
-	typedef std::chrono::high_resolution_clock Time;
-	typedef std::chrono::milliseconds ms;
-	typedef std::chrono::duration<float> fsec;
-	auto start = Time::now();
-
 	while (1) {
 		try {
-			auto teraz = Time::now();
-			fsec roznica = teraz - start;
-			ms czas = std::chrono::duration_cast<ms>(roznica);
-			int czas2 = czas.count();
-			if (czas2 > 5000) {
-				licznik=licznik+1;
-				if (licznik > 3) licznik = 1;
-				start = Time::now();
-			}
-			switch (licznik) {
-			case 1:
-				hd = hd1;
-				hg = hg1;
-				sd = sd1;
-				sg = sg1;
-				vd = vd1;
-				vg = vg1;
-				break;
-			case 2:
-				hd = hd2;
-				hg = hg2;
-				sd = sd2;
-				sg = sg2;
-				vd = vd2;
-				vg = vg2;
-				break;
-			case 3:
-				hd = hd3;
-				hg = hg3;
-				sd = sd3;
-				sg = sg3;
-				vd = vd3;
-				vg = vg3;
-				break;
-			}
-
 			cap >> image;
 			imshow("window", image);
 
 			cvtColor(image, image2, CV_BGR2HSV);			
 
 			//ustalanie wartoœci
-			inRange(image2, Scalar(hd, sd, vd), Scalar(hg, sg, vg), image3);
+			inRange(image2, Scalar(hdol, sdol, vdol), Scalar(hgora, sgora, vgora), image3);
 			imshow("window2", image3);
 
 			Mat element1 = getStructuringElement(cv::MORPH_CROSS,
@@ -156,7 +117,7 @@ int main() {
 			image.copyTo(image7);
 			Moments m = moments(image5, true);
 			Point p(m.m10 / m.m00, m.m01 / m.m00);
-
+			
 			circle(image7, p, 3, Scalar(0, 0, 255));
 			String x = to_string(m.m10 / m.m00);
 			String y = to_string(m.m01 / m.m00);

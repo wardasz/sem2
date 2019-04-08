@@ -5,16 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using metodaWytworcza.czolg;
-using metodaWytworcza.dziala;
-using metodaWytworcza.bwp;
-using metodaWytworcza.apc;
 
 namespace metodaWytworcza
 {
-    class fabrykaCzolgow
+    class fabrykaCzolgow : fabryka
     {
         private static fabrykaCzolgow instancja;
-        protected fabrykaCzolgow() { }
+        private fabrykaCzolgow() { }
 
         public static fabrykaCzolgow dajFabryke()
         {
@@ -25,7 +22,7 @@ namespace metodaWytworcza
             return instancja;
         }
 
-        public czolg.czolg dajCzolg(string nazwa)
+        protected override Ipojazd buduj(string nazwa)
         {
             switch (nazwa)
             {

@@ -12,7 +12,7 @@ namespace metodaWytworcza.dziala
         {
             nazwa = "Grille";
             kaliber = 105;
-            zaloga = 4;
+            przeladowanie = 25;
         }
     }
 }

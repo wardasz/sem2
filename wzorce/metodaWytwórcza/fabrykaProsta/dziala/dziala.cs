@@ -6,26 +6,20 @@ using System.Threading.Tasks;
 
 namespace metodaWytworcza.dziala
 {
-    public abstract class dziala
+    public abstract class dziala : Ipojazd
     {
-        protected String nazwa;
-        protected decimal kaliber;
-        protected int zaloga;
+        public String nazwa { get; protected set; }
+        public decimal kaliber { get; protected set; }
+        public int przeladowanie { get; protected set; }
 
-
-        public String dajNazwe()
+        public void ostrzelaj()
         {
-            return nazwa;
+            Console.WriteLine(nazwa + " prowadzi ostrzał z działa " + kaliber + "mm.");
         }
 
-        public decimal dajKaliber()
+        public void przeladuj()
         {
-            return kaliber;
-        }
-
-        public int dajZaloge()
-        {
-            return zaloga;
+            Console.WriteLine(nazwa + " przeladowuje po strzale, za " + przeladowanie + "sec będzie gotów do strzału.");
         }
     }
 }

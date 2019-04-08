@@ -12,7 +12,7 @@ namespace metodaWytworcza.dziala
         {
             nazwa = "Krab";
             kaliber = 155;
-            zaloga = 3;
+            przeladowanie = 12;
         }
     }
 }

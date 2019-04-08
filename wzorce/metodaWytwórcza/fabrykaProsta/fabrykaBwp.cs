@@ -4,17 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using metodaWytworcza.czolg;
-using metodaWytworcza.dziala;
 using metodaWytworcza.bwp;
-using metodaWytworcza.apc;
 
 namespace metodaWytworcza
 {
-    class fabrykaBwp
+    class fabrykaBwp : fabryka
     {
         private static fabrykaBwp instancja;
-        protected fabrykaBwp() { }
+        private fabrykaBwp() { }
 
         public static fabrykaBwp dajFabryke()
         {
@@ -25,7 +22,7 @@ namespace metodaWytworcza
             return instancja;
 
         }
-        public bwp.bwp dajBewupa(string nazwa)
+        protected override Ipojazd buduj(string nazwa)
         {
             switch (nazwa)
             {

@@ -12,7 +12,6 @@ namespace metodaWytworcza.czolg
         {
             nazwa = "Abrams";
             kaliber = 120;
-            predkosc = 65;
             pancerz = 120;
         }
     }

@@ -12,7 +12,6 @@ namespace metodaWytworcza.czolg
         {
             nazwa = "L'Eclerc";
             kaliber = 100;
-            predkosc = 80;
             pancerz = 60;
         }
     }

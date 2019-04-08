@@ -12,7 +12,6 @@ namespace metodaWytworcza.czolg
         {
             nazwa = "T-95";
             kaliber = 122;
-            predkosc = 45;
             pancerz = 20;
         }
     }

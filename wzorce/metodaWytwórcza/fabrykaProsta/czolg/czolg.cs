@@ -6,31 +6,20 @@ using System.Threading.Tasks;
 
 namespace metodaWytworcza.czolg
 {
-    public abstract class czolg
+    public abstract class czolg : Ipojazd
     {
-        protected String nazwa;
-        protected decimal kaliber;
-        protected int pancerz;
-        protected int predkosc;
+        public String nazwa { get; protected set; }
+        public decimal kaliber { get; protected set; }
+        public int pancerz { get; protected set; }
 
-        public String dajNazwe()
+        public void ostrzelaj()
         {
-            return nazwa;
+            Console.WriteLine(nazwa + " prowadzi ostrzał z działa " + kaliber + "mm.");
         }
 
-        public decimal dajKaliber()
+        public void dostan()
         {
-            return kaliber;
-        }
-
-        public int dajPancerz()
-        {
-            return predkosc;
-        }
-
-        public int dajPredkosc()
-        {
-            return predkosc;
+            Console.WriteLine(nazwa + " otrzymał trafienie, acz jego " + pancerz + "mm pancerza nic sobie z tego nie zrobilo.");
         }
     }
 }

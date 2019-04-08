@@ -6,26 +6,20 @@ using System.Threading.Tasks;
 
 namespace metodaWytworcza.bwp
 {
-    public abstract class bwp
+    public abstract class bwp : Ipojazd
     {
-        protected String nazwa;
-        protected decimal kaliber;
-        protected int mocSilnika;
+        public String nazwa { get; protected set; }
+        public decimal kaliber { get; protected set; }
+        public int mocSilnika { get; protected set; }
 
-
-        public String dajNazwe()
+        public void ostrzelaj()
         {
-            return nazwa;
+            Console.WriteLine(nazwa + " prowadzi ostrzał z działa " + kaliber + "mm.");
         }
 
-        public decimal dajKaliber()
+        public void przełam()
         {
-            return kaliber;
-        }
-
-        public int dajMocSilnika()
-        {
-            return mocSilnika;
+            Console.WriteLine(nazwa + " przeprowadza uderzenie przełamujace, korzystając ze swoich " + mocSilnika + "koni mocy.");
         }
     }
 }
