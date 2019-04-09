@@ -13,7 +13,8 @@ namespace kDrzewa
             var s2 = s.Directory.Parent.Parent;
             String s3 = s2.ToString() + "\\dane.csv";
 
-            List<punkt> punkty = new List<punkt>();
+            List<punkt> punktyX = new List<punkt>();
+            List<punkt> punktyY = new List<punkt>();
             punkt dodawany;
 
             using (var reader = new StreamReader(s3))
@@ -24,16 +25,19 @@ namespace kDrzewa
                     var values = line.Split(',');
 
                     dodawany = new punkt(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
-                    punkty.Add(dodawany);
+                    punktyX.Add(dodawany);
+                    punktyY.Add(dodawany);
                 }
             }
 
-            foreach(punkt p in punkty)
+            foreach(punkt p in punktyX)
             {
                 p.napisz();
             }
 
-            lisc kozen = buduj(punkty, 0);
+            punktyX.Sort((a, b) => (a.porownajX(b)));
+            punktyY.Sort((a, b) => (a.porownajY(b)));
+            lisc kozen = buduj(punktyX, punktyY, 0);
             //kozen.napisz();
 
             int x1;
@@ -54,30 +58,50 @@ namespace kDrzewa
             Console.ReadKey();
         }
 
-        static lisc buduj(List<punkt> punkty, int d)
+        static lisc buduj(List<punkt> punktyX, List<punkt> punktyY, int d)
         {
-            if (punkty.Count == 1)
+            if (punktyX.Count == 1)
             {
-                lisc tmp = new lisc(d, 1, punkty.ElementAt(0));
+                lisc tmp = new lisc(d, 1, punktyX.ElementAt(0));
                 return tmp;
             }
             else
             {
                 if(d%2 == 1)
                 {   //nieparzyste
-                    List<punkt> pol1 = new List<punkt>();
-                    List<punkt> pol2 = new List<punkt>();
-                    punkty.Sort((a, b) => (a.porownajY(b)));
-                    int ile = punkty.Count / 2;
+                    List<punkt> pol1X = new List<punkt>();
+                    List<punkt> pol1Y = new List<punkt>();
+                    List<punkt> pol2X = new List<punkt>();
+                    List<punkt> pol2Y = new List<punkt>();
+                    int ile = punktyY.Count / 2;
                     int licznik = 0;
                     int poziom;
-                    foreach(punkt p in punkty)
+                    foreach(punkt p in punktyY)
                     {
-                        if (licznik < ile) pol1.Add(p);
-                        else pol2.Add(p);
+                        if (licznik < ile)
+                        {
+                            pol1Y.Add(p);
+                            p.czyPierwsza(true);
+                        }
+                        else
+                        {
+                            pol2Y.Add(p);
+                            p.czyPierwsza(false);
+                        }
                         licznik++;
                     }
-                    poziom =  pol1.Last().dajY();
+                    foreach(punkt p in punktyX)
+                    {
+                        if (p.czyPierwsza() == true)
+                        {
+                            pol1X.Add(p);
+                        }
+                        else
+                        {
+                            pol2X.Add(p);
+                        }
+                    }
+                    poziom = pol1Y.Last().dajY();
 
                     /*
                     Console.WriteLine("Pierwsza polowa");
@@ -94,33 +118,54 @@ namespace kDrzewa
                     */
 
                     lisc tmp = new lisc(d, 3, poziom);
-                    tmp.podepnijNaLewo(buduj(pol1, d + 1));
-                    tmp.podepnijNaPrawo(buduj(pol2, d + 1));
+                    tmp.podepnijNaLewo(buduj(pol1X, pol1Y, d + 1));
+                    tmp.podepnijNaPrawo(buduj(pol2X, pol2Y, d + 1));
                     return tmp;
                 }
                 else
                 {   //parzyste
-                    List<punkt> pol1 = new List<punkt>();
-                    List<punkt> pol2 = new List<punkt>();
-                    punkty.Sort((a, b) => (a.porownajX(b)));
-                    int ile = punkty.Count / 2;
+                    List<punkt> pol1X = new List<punkt>();
+                    List<punkt> pol1Y = new List<punkt>();
+                    List<punkt> pol2X = new List<punkt>();
+                    List<punkt> pol2Y = new List<punkt>();
+                    int ile = punktyX.Count / 2;
                     int licznik = 0;
                     int pion;
-                    foreach (punkt p in punkty)
+                    foreach (punkt p in punktyX)
                     {
-                        if (licznik < ile) pol1.Add(p);
-                        else pol2.Add(p);
+                        if (licznik < ile)
+                        {
+                            pol1X.Add(p);
+                            p.czyPierwsza(true);
+                        }
+                        else
+                        {
+                            pol2X.Add(p);
+                            p.czyPierwsza(false);
+                        }
                         licznik++;
                     }
-                    pion = pol1.Last().dajX();
+                    foreach (punkt p in punktyY)
+                    {
+                        if (p.czyPierwsza() == true)
+                        {
+                            pol1Y.Add(p);
+                        }
+                        else
+                        {
+                            pol2Y.Add(p);
+                        }
+                    }
+                    pion = pol1X.Last().dajX();
+                    
                     /*
                     Console.WriteLine("Pierwsza polowa");
-                    foreach (punkt p in pol1)
+                    foreach (punkt p in pol1X)
                     {
                         p.napisz();
                     }
                     Console.WriteLine("Druga polowa");
-                    foreach (punkt p in pol2)
+                    foreach (punkt p in pol2X)
                     {
                         p.napisz();
                     }
@@ -128,8 +173,8 @@ namespace kDrzewa
                     */
 
                     lisc tmp = new lisc(d, 2, pion);
-                    tmp.podepnijNaLewo(buduj(pol1, d + 1));
-                    tmp.podepnijNaPrawo(buduj(pol2, d + 1));
+                    tmp.podepnijNaLewo(buduj(pol1X, pol1Y, d + 1));
+                    tmp.podepnijNaPrawo(buduj(pol2X, pol2Y, d + 1));
                     return tmp;
                 }
             }

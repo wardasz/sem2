@@ -8,6 +8,7 @@ namespace kDrzewa
     {
         private int x;
         private int y;
+        private bool pierwsza;
 
         public punkt(int a, int b)
         {
@@ -23,6 +24,16 @@ namespace kDrzewa
         public int dajY()
         {
             return y;
+        }
+
+        public bool czyPierwsza()
+        {
+            return pierwsza;
+        }
+
+        public void czyPierwsza(bool a)
+        {
+            pierwsza = a;
         }
 
         public int porownajX(punkt a)
