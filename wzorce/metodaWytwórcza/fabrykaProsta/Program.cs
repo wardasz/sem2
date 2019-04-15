@@ -15,6 +15,11 @@ namespace metodaWytworcza
         {
             Ipojazd poj1 = fabrykaCzolgow.dajFabryke().stwoz("Abrams");
             poj1.ostrzelaj();
+            czolg.czolg poj2 = (czolg.czolg)fabrykaCzolgow.dajFabryke().stwoz("Abrams");
+            poj2.ostrzelaj();
+            poj2.dostan();
+            Ipojazd poj3 = fabrykaBwp.dajFabryke().stwoz("Darlo");
+            poj3.ostrzelaj();
             Console.ReadKey();
         }
     }

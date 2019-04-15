@@ -12,7 +12,6 @@ namespace fabrykaAbstrakcyjna.czolg
         {
             nazwa = "Leopard";
             kaliber = 120;
-            predkosc = 65;
             pancerz = 120;
         }
     }

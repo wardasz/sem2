@@ -12,7 +12,7 @@ namespace fabrykaAbstrakcyjna.dziala
         {
             nazwa = "wz. 1977 Dana";
             kaliber = 152;
-            zaloga = 5;
+            przeladowanie = 10;
         }
     }
 }

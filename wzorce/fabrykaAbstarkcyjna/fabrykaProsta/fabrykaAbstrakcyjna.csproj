@@ -67,6 +67,9 @@
     <Compile Include="dziala\Krab.cs" />
     <Compile Include="dziala\Panzerhaubica.cs" />
     <Compile Include="fabryka.cs" />
+    <Compile Include="fabrykaEU.cs" />
+    <Compile Include="fabrykaUS.cs" />
+    <Compile Include="Ifabryka.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

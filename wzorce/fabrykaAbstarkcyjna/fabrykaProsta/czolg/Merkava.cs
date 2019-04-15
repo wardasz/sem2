@@ -12,7 +12,6 @@ namespace fabrykaAbstrakcyjna.czolg
         {
             nazwa = "Merkava";
             kaliber = 111.5m;
-            predkosc = 70;
             pancerz = 100;
         }
     }

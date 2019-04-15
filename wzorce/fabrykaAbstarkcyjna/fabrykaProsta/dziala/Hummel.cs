@@ -12,7 +12,7 @@ namespace fabrykaAbstrakcyjna.dziala
         {
             nazwa = "Hummel";
             kaliber = 150;
-            zaloga = 6;
+            przeladowanie = 30;
         }
     }
 }

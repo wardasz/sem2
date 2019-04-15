@@ -12,7 +12,7 @@ namespace fabrykaAbstrakcyjna.dziala
         {
             nazwa = "Panzerhaubica2000";
             kaliber = 155;
-            zaloga = 2;
+            przeladowanie = 3;
         }
     }
 }

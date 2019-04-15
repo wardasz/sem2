@@ -8,24 +8,18 @@ namespace fabrykaAbstrakcyjna.apc
 {
     public abstract class apc
     {
-        protected String nazwa;
-        protected decimal kaliber;
-        protected int desant;
+        public String nazwa { get; protected set; }
+        public decimal kaliber { get; protected set; }
+        public int desant { get; protected set; }
 
-
-        public String dajNazwe()
+        public void ostrzelaj()
         {
-            return nazwa;
+            Console.WriteLine(nazwa + " prowadzi ostrzał z działa " + kaliber + "mm.");
         }
 
-        public decimal dajKaliber()
+        public void wyzadzDesant()
         {
-            return kaliber;
-        }
-
-        public int dajDesant()
-        {
-            return desant;
+            Console.WriteLine(nazwa + " wysadził desant w liczbie " + desant + "osób.");
         }
     }
 }
