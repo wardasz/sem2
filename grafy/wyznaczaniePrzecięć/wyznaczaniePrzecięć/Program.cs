@@ -20,7 +20,7 @@ namespace wyznaczaniePrzeciec
             //var s2 = s.Directory.Parent.Parent;
             //String sciezka = s2.ToString() + "\\dane.csv";
 
-            String sciezka = "C:\\Users\\wardasz\\source\\repos\\wyznaczaniePrzecięć\\wyznaczaniePrzecięć\\dane.csv";
+            String sciezka = "D:\\studia\\sem2\\grafy\\wyznaczaniePrzecięć\\wyznaczaniePrzecięć\\dane.csv";
             using (var reader = new StreamReader(sciezka))
             {
                 while (!reader.EndOfStream)
