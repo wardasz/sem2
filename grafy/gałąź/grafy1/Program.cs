@@ -15,6 +15,8 @@ namespace gałąź
             var s2 = s.Directory.Parent.Parent;
             String sciezka = s2.ToString() + "\\dane.csv";
             List<punkt> punkty = new List<punkt>();
+            List<punkt> skrajne = new List<punkt>();
+            List<kandydat> kandydaci = new List<kandydat>();
             galaz = new List<linia>();
             punkt tmp;
             
@@ -32,18 +34,35 @@ namespace gałąź
 
             punkty.Sort((a, b) => (a.porownaj(b)));
 
-            foreach(punkt pu in punkty)
-            {
-                pu.napisz();
-            }
-
             while (punkty.Count > 1)
             {
-                punkt p = punkty.ElementAt(0);
-                punkt q = punkty.ElementAt(1);
-                punkty.RemoveAt(1);
-                punkty.RemoveAt(0);
-                punkt pq = new punkt(Math.Min(p.dajX(), q.dajX()), Math.Min(p.dajY(), q.dajY()));
+                int miotla = 0;
+                skrajne.Clear();
+                kandydaci.Clear();
+
+                foreach (punkt pu in punkty)
+                {
+                    if (pu.dajY() >= miotla)
+                    {
+                        skrajne.Add(pu);
+                        miotla = pu.dajY();
+                    }
+                }
+
+                skrajne.Sort((a, b) => (a.porownaj(b)));
+
+                for (int i = 1; i < skrajne.Count(); i++)
+                {
+                    kandydaci.Add(new kandydat(skrajne.ElementAt(i - 1), skrajne.ElementAt(i)));
+                }
+
+                kandydaci.Sort((a, b) => (a.porownaj(b)));
+                kandydat wybrany = kandydaci.ElementAt(0);
+                punkt p = wybrany.dajP();
+                punkt q = wybrany.dajQ();
+                punkty.Remove(p);
+                punkty.Remove(q);
+                punkt pq = new punkt(wybrany.dajX(), wybrany.dajY());
 
                 bool dodano = false;
                 for (int i = 0; i < punkty.Count(); i++)
@@ -61,26 +80,15 @@ namespace gałąź
                 }
                 dodajLinie(p, pq);
                 dodajLinie(q, pq);
-
             }
 
             punkt r = new punkt(0, 0);
-            dodajLinie(r, punkty.ElementAt(0));
+            dodajLinie(punkty.ElementAt(0), r);
 
-            foreach (linia l in galaz)
+            foreach(linia l in galaz)
             {
                 l.napisz();
             }
-
-
-            //Console.WriteLine("p i q");
-              //  p.napisz();
-                //q.napisz();
-             //   Console.WriteLine();
-              //  foreach (punkt pu in punkty)
-               // {
-               //     pu.napisz();
-              //  }
 
             Console.ReadKey();
         }

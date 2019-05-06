@@ -4,15 +4,19 @@ using System.Text;
 
 namespace gałąź
 {
-    class punkt
+    class kandydat
     {
-        private int x;
-        private int y;
+        punkt p1;
+        punkt p2;
+        int x;
+        int y;
 
-        public punkt(int a, int b)
+        public kandydat(punkt a, punkt b)
         {
-            x = a;
-            y = b;
+            p1 = a;
+            p2 = b;
+            x = Math.Min(a.dajX(), b.dajX());
+            y = Math.Min(a.dajY(), b.dajY());
         }
 
         public int dajX()
@@ -25,25 +29,34 @@ namespace gałąź
             return y;
         }
 
-        public void napisz()
+        public punkt dajP()
         {
-            Console.WriteLine(x + "," + y);
+            return p1;
         }
 
-        //odległość taksówkowa do (0,0)
+        public punkt dajQ()
+        {
+            return p2;
+        }
+
+        public void napisz()
+        {
+            Console.WriteLine("Kandydat o <p,q> = " + x + "," + y);
+            p1.napisz();
+            p2.napisz();
+            Console.WriteLine();
+        }
+
         public int dystans()
         {
             return x + y;
         }
 
-
-
-
-        public int porownaj(punkt a)
+        public int porownaj(kandydat a)
         {
-            if (x != a.dajX())
+            if (dystans() != a.dystans())
             {
-                if (x > a.dajX())
+                if (dystans() > a.dystans())
                 {
                     return -1;
                 }
@@ -54,7 +67,7 @@ namespace gałąź
             }
             else
             {
-                if (x > a.dajY())
+                if (x > a.dajX())
                 {
                     return 1;
                 }
