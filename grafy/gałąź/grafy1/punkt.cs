@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace grafy1
+namespace gałąź
 {
     class punkt
     {
@@ -49,11 +49,11 @@ namespace grafy1
             {
                 if(dystans() > a.dystans())
                 {
-                    return 1;
+                    return -1;
                 }
                 else
                 {
-                    return -1;
+                    return 1;
                 }
             }
             else
