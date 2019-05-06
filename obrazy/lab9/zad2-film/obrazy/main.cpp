@@ -93,9 +93,6 @@ int main() {
 					sledzone.push_back(tmp[i]);
 				}
 
-				for (int i = 0; i < rogi.size(); ++i) {
-					sledzone.push_back(rogi[i]);
-				}
 				start = false;
 			}else{
 				cvtColor(image, nowyGray, COLOR_BGR2GRAY);
