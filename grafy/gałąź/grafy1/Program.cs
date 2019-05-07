@@ -32,8 +32,8 @@ namespace gałąź
                 }
             }
 
-            punkty.Sort((a, b) => (a.porownaj(b)));
-
+            punkty.Sort((a, b) => (a.porownaj1(b)));         
+            
             while (punkty.Count > 1)
             {
                 int miotla = 0;
@@ -49,7 +49,23 @@ namespace gałąź
                     }
                 }
 
-                skrajne.Sort((a, b) => (a.porownaj(b)));
+                if (skrajne.Count() == 1)
+                {
+                    punkt jest = skrajne.ElementAt(0);
+                    punkt max = new punkt(0, 0);
+
+                    foreach (punkt pun in punkty)
+                    {
+
+                        if (pun.porownaj2(max) == -1 && pun.tenSam(jest) == false)
+                        {
+                            max = pun;
+                        }
+                    }
+                    skrajne.Add(max);
+                }
+                
+                skrajne.Sort((a, b) => (a.porownaj1(b)));
 
                 for (int i = 1; i < skrajne.Count(); i++)
                 {
@@ -67,7 +83,7 @@ namespace gałąź
                 bool dodano = false;
                 for (int i = 0; i < punkty.Count(); i++)
                 {
-                    if (pq.porownaj(punkty.ElementAt(i)) == -1)
+                    if (pq.porownaj1(punkty.ElementAt(i)) == -1)
                     {
                         punkty.Insert(i, pq);
                         dodano = true;
@@ -80,8 +96,9 @@ namespace gałąź
                 }
                 dodajLinie(p, pq);
                 dodajLinie(q, pq);
+                
             }
-
+            
             punkt r = new punkt(0, 0);
             dodajLinie(punkty.ElementAt(0), r);
 
@@ -89,6 +106,7 @@ namespace gałąź
             {
                 l.napisz();
             }
+            
 
             Console.ReadKey();
         }

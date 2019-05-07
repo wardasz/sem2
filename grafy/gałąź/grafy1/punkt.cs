@@ -30,16 +30,7 @@ namespace gałąź
             Console.WriteLine(x + "," + y);
         }
 
-        //odległość taksówkowa do (0,0)
-        public int dystans()
-        {
-            return x + y;
-        }
-
-
-
-
-        public int porownaj(punkt a)
+        public int porownaj1(punkt a)
         {
             if (x != a.dajX())
             {
@@ -63,6 +54,44 @@ namespace gałąź
                     return -1;
                 }
             }
+        }
+
+        public int dystans()
+        {
+            return x + y;
+        }
+
+        public int porownaj2(punkt a)
+        {
+            if (dystans() != a.dystans())
+            {
+                if (dystans() > a.dystans())
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                if (x > a.dajX())
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public bool tenSam(punkt a)
+        {
+            bool wynik = false;
+            if (x == a.dajX() && y == a.dajY()) wynik = true;
+            return wynik;
         }
     }
 }
