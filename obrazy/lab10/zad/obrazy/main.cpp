@@ -8,7 +8,31 @@
 using namespace cv;
 using namespace std;
 
+int robocza1;
+int robocza2;
+int robocza3;
+
+double skala;
+int sasiedzi;
+int rozmiar;
+
+void on_trackbar(int, void*)
+{
+	skala = (1.05+((double)robocza1/20));
+	sasiedzi = robocza2+3;
+	rozmiar = robocza3+10;
+}
+
 int main() {
+
+	namedWindow("Suwaki", 4);
+	createTrackbar("scaleFactor", "Suwaki", &robocza1, 8, on_trackbar);
+	createTrackbar("minNeighbors", "Suwaki", &robocza2, 3, on_trackbar);
+	createTrackbar("minSize", "Suwaki", &robocza3, 20, on_trackbar);
+
+	skala = 1.1;
+	sasiedzi = 3;
+	rozmiar = 30;
 
 	Mat image;
 	Mat image2;
@@ -23,13 +47,9 @@ int main() {
 	int wersja =1;
 	
 	Point centrum;
-	Mat Roi;
 	Rect Rec;
-	CvSize rozmiar;
-	int x1;
-	int x2;
-	int y1;
-	int y2;
+	Mat zapisana;
+	Mat wstawiana;
 
 	VideoCapture cap;
 	cap.open(0);
@@ -54,11 +74,12 @@ int main() {
 			cvtColor(image, image2, CV_BGR2GRAY);
 			equalizeHist(image2, image2);
 
-			kaskadaTwarzy.detectMultiScale(image2, twarze, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
+			kaskadaTwarzy.detectMultiScale(image2, twarze, skala, sasiedzi, 0 | CV_HAAR_SCALE_IMAGE, Size(rozmiar, 30));
 
 			for (size_t i = 0; i < twarze.size(); i++)
 			{
 				Mat ROI = image2(twarze[i]);
+				Mat Roi = image(twarze[i]);
 				kaskadaOczu.detectMultiScale(ROI, oczy, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
 
 				switch (wersja)
@@ -96,25 +117,21 @@ int main() {
 					break;
 
 				case 3:
-					centrum = Point(twarze[i].x + twarze[i].width*0.5, twarze[i].y + twarze[i].height*0.5);
-					x1 = centrum.x - 50;
-					if (x1 < 0) x1 = 0;
-					y1 = centrum.y - 50;
-					if (y1 < 0) y1 = 0;
-					x2 = centrum.x + 50;
-					if (x2 < 0) x2 = 640;
-					y2 = centrum.y + 50;
-					if (y2 < 0) y2 = 480;
-
-
-					Rec = Rect(x1, y1, x2, y2);
-					
-					Roi = image3(Rec);
-					rozmiar.width = (5 * 2) + 1;
-					rozmiar.height = (5 * 2) + 1;
-					GaussianBlur(Roi, Roi, rozmiar, 0);
+					GaussianBlur(Roi, Roi, CvSize(55, 55), 0);
+					Rec = Rect(twarze[i].x, twarze[i].y, twarze[i].width, twarze[i].height);
 					Roi.copyTo(image3(Rec));
+					break;
 
+				case 4:
+					if (i == 0) {
+						Roi.copyTo(zapisana);
+					}
+					else
+					{
+						resize(zapisana, wstawiana, CvSize(twarze[i].width, twarze[i].height), 0, 0, CV_INTER_LINEAR);
+						Rec = Rect(twarze[i].x, twarze[i].y, twarze[i].width, twarze[i].height);
+						wstawiana.copyTo(image3(Rec));
+					}
 					break;
 
 				default:
@@ -138,7 +155,7 @@ int main() {
 		case 27:
 				cap.release();
 				cvDestroyAllWindows();
-				break;
+				return 0;
 		case 48:
 			wersja = 0;
 			break;
@@ -150,6 +167,9 @@ int main() {
 			break;
 		case 51:
 			wersja = 3;
+			break;
+		case 52:
+			wersja = 4;
 			break;
 		default:
 			break;
