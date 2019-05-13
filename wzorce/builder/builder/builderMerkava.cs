@@ -8,9 +8,9 @@ using builder.pojazd;
 
 namespace builder
 {
-    class builderAbrams : builderCzolgow
+    class builderMerkava : builderCzolgow
     {
-        public builderAbrams()
+        public builderMerkava()
         {
             produkt = nowy();
         }
@@ -27,19 +27,19 @@ namespace builder
 
         public override builderCzolgow ustawNazwe()
         {
-            produkt.nazwa = "Abrams";
+            produkt.nazwa = "Merkava";
             return this;
         }
 
         public override builderCzolgow ustawKaliber()
         {
-            produkt.kaliber = 120;
+            produkt.kaliber = 100;
             return this;
         }
 
         public override builderCzolgow ustawPancerz()
         {
-            produkt.pancerz = 100;
+            produkt.pancerz = 60;
             return this;
         }
 

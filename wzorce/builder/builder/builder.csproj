@@ -44,8 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="builderAbrams.cs" />
+    <Compile Include="builderBewupow.cs" />
     <Compile Include="builderCzolgow.cs" />
-    <Compile Include="czolg\czolg.cs" />
+    <Compile Include="builderMerkava.cs" />
+    <Compile Include="builderRosomak.cs" />
+    <Compile Include="builderStriker.cs" />
+    <Compile Include="fabrykaBewupow.cs" />
+    <Compile Include="pojazd\bwp.cs" />
+    <Compile Include="pojazd\czolg.cs" />
     <Compile Include="fabrykaCzolgow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,9 +8,9 @@ using builder.pojazd;
 
 namespace builder
 {
-    class fabrykaCzolgow
+    class fabrykaBewupow
     {
-        public czolg zbuduj(builderCzolgow builder)
+        public bwp zbuduj(builderBewupow builder)
         {
             return builder;
         }
