@@ -21,7 +21,7 @@ namespace fabrykaAbstrakcyjna
             poj2.przełam();
 
 
-            licz(1000000);
+            //licz(1000000);
             Console.ReadKey();
 
 

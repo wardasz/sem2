@@ -21,7 +21,7 @@ namespace metodaWytworcza
             Ipojazd poj3 = fabrykaBwp.dajFabryke().stwoz("Darlo");
             poj3.ostrzelaj();
 
-            licz(1000000);
+            //licz(1000000);
             Console.ReadKey();
         }
 

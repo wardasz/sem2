@@ -10,7 +10,7 @@ namespace fabrykaRefleksyjna
     {
         static void Main(string[] args)
         {
-            /*
+            
             var fabryczka = fabryka.dajFabryke();
 
             fabryczka.twozenieSlownika();
@@ -27,9 +27,9 @@ namespace fabrykaRefleksyjna
             dziala.dziala poj4 = fabryczka.zrobDzialo("Dana");
             poj4.ostrzelaj();
             poj4.przeladuj();
-            */
+            
 
-            licz(1000000);
+            //licz(1000000);
             Console.ReadKey();
         }
 

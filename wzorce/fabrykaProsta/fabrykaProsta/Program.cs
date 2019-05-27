@@ -17,7 +17,7 @@ namespace fabrykaProsta
             Console.WriteLine(poj2.dajNazwe());
             Console.WriteLine(poj2.dajKaliber());
 
-            licz(1000000);
+            //licz(1000000);
             Console.ReadKey();
         }
 

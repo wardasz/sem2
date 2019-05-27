@@ -37,7 +37,7 @@ namespace fabrykaRejestrująca
             poj4.przeladuj();
 
 
-            licz(1000000);
+            //licz(1000000);
             Console.ReadKey();
 
         }
