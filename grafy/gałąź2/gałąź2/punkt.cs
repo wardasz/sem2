@@ -30,16 +30,9 @@ namespace gałąź2
             return x + y;
         }
 
-        public bool lepszy(punkt p)
+        public void napisz()
         {
-            if (p.dystans() < dystans() || (p.dystans() == dystans() && x < p.dajX()))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        } 
+            Console.WriteLine(x + "," + y);
+        }
     }
 }

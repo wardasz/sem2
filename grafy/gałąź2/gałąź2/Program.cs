@@ -6,16 +6,14 @@ namespace gałąź2
 {
     class Program
     {
-        public static List<linia> galaz;
+        public static List<podzbior> policzone;
         static void Main(string[] args)
         {
+            policzone = new List<podzbior>();
             var s = new FileInfo(Directory.GetCurrentDirectory());
             var s2 = s.Directory.Parent.Parent;
             String sciezka = s2.ToString() + "\\dane.csv";
-            List<punkt> punkty = new List<punkt>();
-            List<punkt> skrajne = new List<punkt>();
-            galaz = new List<linia>();
-           
+            List<punkt> punkty = new List<punkt>();           
             punkt tmp;
             using (var reader = new StreamReader(sciezka))
             {
@@ -29,64 +27,65 @@ namespace gałąź2
                 }
             }
 
-            while (punkty.Count > 1)
+            List<string> maski = new List<string>();
+            for (int x = 1; x <= (Math.Pow(2, punkty.Count) - 1); x++)
             {
-                punkt p = punkty[0];
-                punkt q = punkty[1];
-                punkt min = new punkt(Math.Min(p.dajX(), q.dajX()), Math.Min(p.dajY(), q.dajY()));
-
-                for (int i = 0; i < punkty.Count; i++)
+                string maska = Convert.ToString(x, 2);
+                while (maska.Length < punkty.Count)
                 {
-                    for (int j = 0; j < punkty.Count; j++)
-                    {
-                        if (i != j)
-                        {
-                            punkt nowy = new punkt(Math.Min(punkty[i].dajX(), punkty[j].dajX()), Math.Min(punkty[i].dajY(), punkty[j].dajY()));
-                            if (nowy.lepszy(min))
-                            {
-                                min = nowy;
-                                p = punkty[i];
-                                q = punkty[j];
-                            }
-                        }
-                    }
+                    maska = "0" + maska;
                 }
-            
-                punkty.Remove(p);
-                punkty.Remove(q);
-                punkty.Add(min);
-                dodajLinie(p, min);
-                dodajLinie(q, min);
+                maski.Add(maska);
             }
 
-            punkt r = new punkt(0, 0);
-            dodajLinie(punkty[0], r);
+            for(int x = 1; x < punkty.Count; x++)
+            {
+                foreach (string maska in maski)
+                {
+                    int suma = 0;
+                    foreach(char c in maska)
+                    {
+                        if (c == '1')
+                        {
+                            suma++;
+                        }
+                    }
+                    if (suma == x)
+                    {
+                        List<punkt> nowa = new List<punkt>();
+                        for (int i = 0; i < punkty.Count; i++)
+                        {
+                            if (maska[i] == '1')
+                            {
+                                nowa.Add(punkty[i]);
+                            }
+                        }
+                        podzbior nowy = new podzbior(nowa);
+                        policzone.Add(nowy);
+                    }
+                }
+            }
+            podzbior wynik = new podzbior(punkty);
+            wynik.ukozen();
+            List<linia> rozwiazanie = wynik.dajGalaz();
 
-            foreach (linia l in galaz)
+            foreach(linia l in rozwiazanie)
             {
                 l.napisz();
             }
 
 
+
             Console.ReadKey();
-        }
+        }     
 
-        public static void dodajLinie(punkt p1, punkt p2)
+        public static podzbior szukaj(List<punkt> punkty)
         {
-            if (p1.dajX() == p2.dajX() && p1.dajY() == p2.dajY())
+            foreach(podzbior p in policzone)
             {
-                return;
+                if (p.czyTo(punkty)) return p;
             }
-
-            if (p1.dajX() == p2.dajX() || p1.dajY() == p2.dajY())
-            {
-                galaz.Add(new linia(p1, p2));
-                return;
-            }
-
-            punkt tmp = new punkt(Math.Max(p1.dajX(), p2.dajX()), Math.Min(p1.dajY(), p2.dajY()));
-            dodajLinie(p1, tmp);
-            dodajLinie(p2, tmp);
+            return null;
         }
     }
 }
