@@ -51,7 +51,15 @@ int main() {
 	Mat rys;
 	Mat zapis;
 
+	int numer = 1;
+	bool nagrywanie=true;
 	bool pierwsza=true;
+	bool ruch = false;
+	int tryb = 0;
+	auto start = Time::now();
+
+	string nazwa;
+	stringstream ss;
 
 	VideoCapture cap;
 	cap.open(0);
@@ -65,7 +73,7 @@ int main() {
 	CvSize rozmiar;
 	rozmiar.width = 640;
 	rozmiar.height = 480;
-	VideoWriter twozony("D:\\klatki\\nowy.avi", CV_FOURCC('D', 'I', 'V', 'X'), fps, rozmiar, true);
+	VideoWriter twozony("D:\\klatki\\nowy1.avi", CV_FOURCC('D', 'I', 'V', 'X'), fps, rozmiar, true);
 
 	while (1) {
 		try {
@@ -75,13 +83,37 @@ int main() {
 				pierwsza = false;
 			}else{
 				cap >> nowa;
-				nowa.copyTo(rys);
+				nowa.copyTo(rys);	
 				nowa.copyTo(zapis);
-				if (detekcja(stara, nowa) == true) {
-					circle(rys, Point(10, 10), 6, Scalar(0, 0, 255), -1, 8);
+				ruch = detekcja(stara, nowa);
+				if (tryb == 0 && ruch == true) {
+					tryb = 1;					
+				}
+				if (tryb == 1 && ruch == false) {
+					tryb = 2;
+					start = Time::now();
+				}
+				if (tryb == 2) {
+					auto teraz = Time::now();
+					fsec roznica = teraz - start;
+					ms czas = std::chrono::duration_cast<ms>(roznica);
+					int czas2 = czas.count();
+					if (czas2 > 5000) {
+						tryb = 3;
+					}
+				}
 
-					putText(zapis, napis, Point(5, 15), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(0, 0, 0), 1, CV_AA);
-					twozony.write(zapis);
+				if (nagrywanie == true) {
+					if (tryb == 1 || tryb == 2) {
+						circle(rys, Point(10, 10), 6, Scalar(0, 0, 255), -1, 8);
+						time_t zegar = time(0);
+						tm* czas = localtime(&zegar);
+						char znaki[50];
+						sprintf(znaki, "%d-%02d-%02d %02d:%02d:%02d", (czas->tm_year + 1900), (czas->tm_mon + 1), (czas->tm_mday), (czas->tm_hour), (czas->tm_min), (czas->tm_sec));
+						String napis(znaki);
+						putText(zapis, napis, Point(5, 15), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(0, 0, 0), 1, CV_AA);
+						twozony.write(zapis);
+					}
 				}
 				imshow("window", rys);
 				nowa.copyTo(stara);
@@ -90,16 +122,44 @@ int main() {
 			
 		}
 		catch (Exception e) {
-			cap.release();
-			twozony.release();
-			cvDestroyAllWindows();
+			//cap.release();
+			//twozony.release();
+			//cvDestroyAllWindows();
 			break;
 		}
 
-		if (waitKey(15) == 27) {
+		int znak = waitKey(15);
+		switch (znak)
+		{
+		case 27:
 			cap.release();
 			twozony.release();
 			cvDestroyAllWindows();
+			return 0;
+		case 49: //1-spauzowanie nagrywania
+			if (nagrywanie == true) {
+				nagrywanie = false;
+			}
+			else {
+				nagrywanie = true;
+			}
+			break;
+		case 50: //2-przerwanie nagrania
+			tryb = 3;
+			break;
+		case 51: //3-nowe nagranie
+			numer++;
+			twozony.release();
+			nazwa = "D:\\klatki\\nowy";
+			ss.str(std::string());
+			ss << numer;
+			nazwa += string(ss.str());
+			nazwa += ".avi";
+			twozony = VideoWriter(nazwa, CV_FOURCC('D', 'I', 'V', 'X'), fps, rozmiar, true);
+			tryb = 0;
+			pierwsza = true;
+			break;
+		default:
 			break;
 		}
 	}
