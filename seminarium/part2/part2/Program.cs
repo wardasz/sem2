@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace part2
         static void Main(string[] args)
         {
             String adresTekst = "D:\\studia\\magisterka\\sem2\\seminarium\\oczyszczony.txt";
+            String adresDane = "D:\\studia\\magisterka\\sem2\\seminarium\\rejestr.txt";
 
             String tekst = "";
             List<litera> litery = new List<litera>();
@@ -88,7 +90,17 @@ namespace part2
                         }
                         break;
                     case 5:
+                        Console.WriteLine("Podaj opis:");
+                        string opis = Console.ReadLine();
+                        foreach (litera l in litery)
+                        {
+                            opis = opis + " " + l.dajLitere() + "-" + l.jakiProcent();
+                        }
+                        using (StreamWriter writer = new StreamWriter(adresDane, true))
+                        {
+                            writer.WriteLine(opis);
 
+                        }
                         break;
                     case 6:
 
@@ -114,7 +126,7 @@ namespace part2
             Console.WriteLine("2-Wypisz listę liczb");
             Console.WriteLine("3-Wczytaj tekst");
             Console.WriteLine("4-Policz znaki w tekście");
-            Console.WriteLine("5-");
+            Console.WriteLine("5-Zapisz znaki do pliku");
             Console.WriteLine("6-");
             Console.WriteLine("0-zamknij program");
         }
