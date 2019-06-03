@@ -122,9 +122,9 @@ int main() {
 			
 		}
 		catch (Exception e) {
-			//cap.release();
-			//twozony.release();
-			//cvDestroyAllWindows();
+			cap.release();
+			twozony.release();
+			cvDestroyAllWindows();
 			break;
 		}
 

@@ -29,6 +29,9 @@ namespace prototypGleboki
             Console.WriteLine(kopia.kadlub.wieza.dzialo.pocisk.kaliber);
             Console.WriteLine(oryginal.kadlub.wieza.dzialo.pocisk.kaliber);
 
+            Console.WriteLine(oryginal.kadlub.wieza.dzialo.pocisk.kaliber.GetHashCode() == kopia.kadlub.wieza.dzialo.pocisk.kaliber.GetHashCode());
+            Console.WriteLine(oryginal.kadlub.wieza.dzialo.pocisk.kaliber == kopia.kadlub.wieza.dzialo.pocisk.kaliber);
+
             Console.ReadKey();
         }
     }
