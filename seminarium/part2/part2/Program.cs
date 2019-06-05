@@ -9,13 +9,15 @@ namespace part2
 {
     class Program
     {
+        public static String adresTekst = "D:\\studia\\magisterka\\sem2\\seminarium\\oczyszczony.txt";
+        public static String adresDane = "D:\\studia\\magisterka\\sem2\\seminarium\\rejestr.txt";
+
+        public static String tekst = "";
+        public static List<litera> litery = new List<litera>();
+
         static void Main(string[] args)
         {
-            String adresTekst = "D:\\studia\\magisterka\\sem2\\seminarium\\oczyszczony.txt";
-            String adresDane = "D:\\studia\\magisterka\\sem2\\seminarium\\rejestr.txt";
-
-            String tekst = "";
-            List<litera> litery = new List<litera>();
+            
             litery.Add(new litera('a'));
             litery.Add(new litera('ą'));
             litery.Add(new litera('b'));
@@ -58,55 +60,24 @@ namespace part2
                 switch (wybor)
                 {
                     case 1:
-                        Console.WriteLine(tekst);
+                        wypiszTekst();
                         break;
                     case 2:
-                        foreach(litera l in litery)
-                        {
-                            l.napisz();
-                        }
+                        wypiszLitery();
                         break;
                     case 3:
-                        tekst = System.IO.File.ReadAllText(adresTekst);
+                        wczytajTekst();
                         break;
                     case 4:
-                        foreach(char znak in tekst)
-                        {
-                            litera l = litery.Select(n => n).Where(x => x.dajLitere() == znak).FirstOrDefault();
-                            if (l != null)
-                            {
-                                l.podbij();
-                            }
-                        }
-                        litery.Sort((b, a) => (a.ileRazy().CompareTo(b.ileRazy())));
-                        int suma = 0;
-                        foreach(litera l in litery)
-                        {
-                            suma = suma + l.ileRazy();
-                        }
-                        foreach (litera l in litery)
-                        {
-                            l.policzProcent(suma);
-                        }
+                        policz();
                         break;
                     case 5:
-                        Console.WriteLine("Podaj opis:");
-                        string opis = Console.ReadLine();
-                        foreach (litera l in litery)
-                        {
-                            opis = opis + " " + l.dajLitere() + "-" + l.jakiProcent();
-                        }
-                        using (StreamWriter writer = new StreamWriter(adresDane, true))
-                        {
-                            writer.WriteLine(opis);
-
-                        }
+                        zapisz();
                         break;
                     case 6:
-
-                        break;
-                    case 7:
-
+                        wczytajTekst();
+                        policz();
+                        zapisz();
                         break;
                     case 0:
                         return;                     
@@ -123,12 +94,67 @@ namespace part2
         {
             Console.WriteLine("Co chcesz zrobić? (wpisz cyfrę)");
             Console.WriteLine("1-Wypisz wczytany tekst");
-            Console.WriteLine("2-Wypisz listę liczb");
+            Console.WriteLine("2-Wypisz listę liter");
             Console.WriteLine("3-Wczytaj tekst");
             Console.WriteLine("4-Policz znaki w tekście");
             Console.WriteLine("5-Zapisz znaki do pliku");
-            Console.WriteLine("6-");
+            Console.WriteLine("6-Wombo combo");
             Console.WriteLine("0-zamknij program");
+        }
+
+        public static void wypiszTekst()
+        {
+            Console.WriteLine(tekst);
+        }
+
+        public static void wypiszLitery()
+        {
+            foreach (litera l in litery)
+            {
+                l.napisz();
+            }
+        }
+
+        public static void wczytajTekst()
+        {
+            tekst = System.IO.File.ReadAllText(adresTekst);
+        }
+
+        public static void policz()
+        {
+            foreach (char znak in tekst)
+            {
+                litera l = litery.Select(n => n).Where(x => x.dajLitere() == znak).FirstOrDefault();
+                if (l != null)
+                {
+                    l.podbij();
+                }
+            }
+            litery.Sort((b, a) => (a.ileRazy().CompareTo(b.ileRazy())));
+            int suma = 0;
+            foreach (litera l in litery)
+            {
+                suma = suma + l.ileRazy();
+            }
+            foreach (litera l in litery)
+            {
+                l.policzProcent(suma);
+            }
+        }
+
+        public static void zapisz()
+        {
+            Console.WriteLine("Podaj opis:");
+            string opis = Console.ReadLine();
+            foreach (litera l in litery)
+            {
+                opis = opis + " " + l.dajLitere() + "-" + l.jakiProcent();
+            }
+            using (StreamWriter writer = new StreamWriter(adresDane, true))
+            {
+                writer.WriteLine(opis);
+
+            }
         }
     }
 }

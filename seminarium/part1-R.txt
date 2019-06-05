@@ -19,3 +19,14 @@ tekst <- tolower(tekst)
 
 //zapisanie tekstu do pliku
 write(tekst, wyjscie)
+
+
+
+
+
+//wersja do skopiowania (szybka obróbka)
+tekst <- readChar(wejscie, file.info(wejscie)$size)
+tekst <- removePunctuation(tekst)
+tekst <- removeNumbers(tekst)
+tekst <- tolower(tekst)
+write(tekst, wyjscie)
