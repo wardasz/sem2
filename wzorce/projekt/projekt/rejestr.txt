@@ -1,0 +1,6 @@
+﻿jeden
+dwa
+True
+jeden
+dwa
+True
