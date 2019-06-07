@@ -9,8 +9,11 @@ namespace part2
 {
     class Program
     {
-        public static String adresTekst = "D:\\studia\\magisterka\\sem2\\seminarium\\oczyszczony.txt";
-        public static String adresDane = "D:\\studia\\magisterka\\sem2\\seminarium\\rejestr.txt";
+        //public static String adresTekst = "D:\\studia\\magisterka\\sem2\\seminarium\\oczyszczony.txt";
+        //public static String adresDane = "D:\\studia\\magisterka\\sem2\\seminarium\\rejestr.txt";
+
+        public static String adresTekst = "D:\\studia\\sem2\\seminarium\\oczyszczony.txt";
+        public static String adresDane = "D:\\studia\\sem2\\seminarium\\rejestr.txt";
 
         public static String tekst = "";
         public static List<litera> litery = new List<litera>();

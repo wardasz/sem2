@@ -5,6 +5,9 @@ library(tm)
 //podanie ścieżek dostępu
 wejscie <- 'D:/studia/magisterka/sem2/seminarium/wejscie.txt'
 wyjscie <- 'D:/studia/magisterka/sem2/seminarium/oczyszczony.txt'
+//wersja laptop
+wejscie <- 'D:/studia/sem2/seminarium/wejscie.txt'
+wyjscie <- 'D:/studia/sem2/seminarium/oczyszczony.txt'
 
 //zassanie tekstu
 tekst <- readChar(wejscie, file.info(wejscie)$size)
