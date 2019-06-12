@@ -8,8 +8,11 @@ namespace projekt
     public class loger
     {
         private static loger instancja;
+        private int numer;
 
-        private loger() { }
+        private loger() {
+            numer = 1;
+        }
 
         public static loger dajInstancje()
         {       
@@ -26,10 +29,13 @@ namespace projekt
             var s2 = s.Directory.Parent.Parent;
             String sciezka = s2.ToString() + "\\rejestr.txt";
 
+            DateTime czas = DateTime.Now;
+
             using (StreamWriter writer = new StreamWriter(sciezka, true))
             {
-                writer.WriteLine(a);
+                writer.WriteLine("Wpis nr " + numer + ": " + czas + " - " + a);
             }
+            numer++;
         }
     }
 }
