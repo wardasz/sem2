@@ -4,21 +4,21 @@ using System.Text;
 
 namespace projekt
 {
-    public class odwiedzajacyWykonawca : Iodwiedzajacy
+    class odwiedzajacyWykonawca1 : Iodwiedzajacy
     {
         private int materialy;
         private int materialyStart;
 
-        public odwiedzajacyWykonawca(int a)
+        public odwiedzajacyWykonawca1(int a)
         {
             materialy = a;
             materialyStart = a;
-        }    
+        }
 
         public void odwiedz(pojazd poj)
         {
             czolg cz = poj as czolg;
-            if (cz.czyGotowe() == false && materialy>0) 
+            if (cz.czyGotowe() == false && materialy > 0)
             {
                 materialy--;
                 cz.montuj();
@@ -30,8 +30,5 @@ namespace projekt
             Console.WriteLine("Wykonano " + (materialyStart - materialy) + " operacji montażowych, " + materialy + " zestawów części zwrócono do magazynu");
             return materialy;
         }
-
-
-
     }
 }

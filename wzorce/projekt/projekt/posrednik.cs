@@ -7,13 +7,12 @@ namespace projekt
     public class posrednik
     {
         private bioroZamowien bioro;
-        private liniaMontazowa linia;
+        private strategiaMontazu linia;
         private magazyn mag;
 
         public posrednik()
         {
             bioro = new bioroZamowien();
-            linia = new liniaMontazowa();
             mag = new magazyn();
         }
 
@@ -26,7 +25,7 @@ namespace projekt
             bioro.zamow(s, i);
         }
 
-        public void praca(string s, int i)
+        public void praca(string s, int i, int typ)
         {
             if (mag.czyStarczy(i)==false)
             {
@@ -39,9 +38,18 @@ namespace projekt
             if (z != null)
             {
                 mag.zapotrzebowanie(i);
-                Iodwiedzajacy wykonawca = new odwiedzajacyWykonawca(i);
-                z.akceptuj(wykonawca);
-                mag.dostawa(wykonawca.dajWynik());
+                int zwrot;
+                if(typ == 1)
+                {
+                    linia = new strategiaMontazu1();
+                    zwrot = linia.montuj(z, i);
+                }
+                else
+                {
+                    linia = new strategiaMontazu2();
+                    zwrot = linia.montuj(z, i);
+                }
+                mag.dostawa(zwrot);
             }
         }
 

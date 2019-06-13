@@ -31,7 +31,18 @@ namespace projekt
                         nazwa = Console.ReadLine();
                         Console.WriteLine("Ile zestawów części chcesz użyć");
                         ile = Convert.ToInt32(Console.ReadLine());
-                        p.praca(nazwa, ile);
+                        Console.WriteLine("Jak chcesz montować czołgi");
+                        Console.WriteLine("1-Wszystkie po równo");
+                        Console.WriteLine("2-Pierwszy do końca, potem drugi");
+                        int typ = Convert.ToInt32(Console.ReadLine());
+                        if (typ == 1 || typ == 2)
+                        {
+                            p.praca(nazwa, ile, typ);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Podano zły typ");
+                        }
                         break;
                     case 3:
                         Console.WriteLine("Ile zestawów części chcesz dostarczyć");
