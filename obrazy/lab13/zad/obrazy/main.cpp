@@ -1,42 +1,52 @@
-#include<opencv2/highgui/highgui.hpp>
-#include<opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
 
-#include<iostream>
-#include<conio.h>
+#define CVUI_IMPLEMENTATION
+#include "cvui.h"
 
-#include<chrono>
-#include<iomanip>
-#include<ctime>  
+#define WINDOW_NAME "Panel Sterowania"
 
-using namespace cv;
-using namespace std;
+int main(int argc, const char *argv[])
+{
+	cv::Mat frame = cv::Mat(90, 250, CV_8UC3);
 
-int main() {
-	Mat image;
+	cvui::init(WINDOW_NAME);
 
-	VideoCapture cap;
-	cap.open(0);
+	bool wybrano = false;
 
-	namedWindow("window", CV_WINDOW_AUTOSIZE);
+	cv::Mat zrodlo;
 
-	double dWidth = cap.set(CV_CAP_PROP_FRAME_WIDTH, 640);
-	double dHeight = cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+	cv::VideoCapture cap;
 
-	while (1) {
-		try {
-			cap >> image;
-			imshow("window", image);
+	cv::namedWindow("film", CV_WINDOW_AUTOSIZE);
+
+	while (true) {
+		frame = cv::Scalar(49, 52, 49);
+
+		
+		if (cvui::button(frame, 20, 10, "Przetwarzaj obraz z kamery")) {
+			cap.open(0);
+			double dWidth = cap.set(CV_CAP_PROP_FRAME_WIDTH, 640);
+			double dHeight = cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+			wybrano = true;
 		}
-		catch (Exception e) {
-			cap.release();
-			cvDestroyAllWindows();
-			break;
+
+		if (cvui::button(frame, 20, 50, "Przetwarzaj obraz z dysku")) {
+			cap = cv::VideoCapture("D:\\klatki\\film.avi");
+			wybrano = true;
 		}
-		if (waitKey(15) == 27) {
-			cap.release();
-			cvDestroyAllWindows();
+
+		cvui::imshow(WINDOW_NAME, frame);
+
+		if (wybrano == true) {
+			cap >> zrodlo;
+			cv::imshow("film", zrodlo);
+		}
+
+		// Check if ESC key was pressed
+		if (cv::waitKey(20) == 27) {
 			break;
 		}
 	}
+
 	return 0;
 }

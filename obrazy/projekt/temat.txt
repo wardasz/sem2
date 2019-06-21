@@ -1,0 +1,9 @@
+10.Rozszerzona wersja jednego zadania, które bêdzie na zajêciach. Program ma  umo¿liwiæ:  
+-Wykrywanie  twarzy   na  podstawie  obrazu  z  kamery  i  plików   wideo,  natêpnie  dokonywaæ  cenzury (rozmycie twarzy, czarny prostok¹t) z 
+mo¿liwoœci¹ zapisu przetworzonego strumienia do pliku wideo.  
+-Zapisywanie  do  plików  graficznych  wybranych  i  wykrytych  twarzy  dla  okreœlonej  liczby  klatek,  b¹dŸ  po naciœniêciu klawisza. Dodaktowo  
+program  ma  umo¿liwiæ  „podmianê”  wykrytej/wykrytych  twarzy,  z  obrazu  z  kamery  i  plików wideo, w nastêpuj¹cy sposób: 
+	-Wykrywa  automatycznie  twarze  (z  kamery  i  plików  wideo)  wielu  osób,  nastêpnie  u¿ytkownik  decyduje, która  twarz  ma  byæ  
+skopiowiona  w  miejsce  pozosta³ych,  w  tym  okreœlona  klatka  (czyli  pojedynczy, statyczny obraz) lub w czasie rzeczywistym (aktualizacja 
+na bie¿¹co) 
+	-Pozwala ‘podmieniæ’ twarz na podstawie obrazu/obrazów za³adowanego/za³adowanych z pliku.
